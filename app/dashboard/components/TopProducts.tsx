@@ -1,5 +1,6 @@
 "use client";
 import { useDashboardStore } from "@/store/dashboardStore";
+import type { TopProduct } from "@/store/dashboardStore";
 import {
   Card,
   CardContent,
@@ -46,7 +47,7 @@ export default function TopProducts() {
           </TableHead>
 
           <TableBody>
-            {topProducts.map((product: any, index: number) => (
+            {topProducts.map((product: TopProduct, index: number) => (
               <TableRow key={product.id}>
                 {/* Index */}
                 <TableCell sx={{ fontWeight: 600, color: "#444a6d" }}>

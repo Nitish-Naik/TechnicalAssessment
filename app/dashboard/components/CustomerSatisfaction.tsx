@@ -1,5 +1,6 @@
 "use client";
 import { useDashboardStore } from "@/store/dashboardStore";
+import type { CustomerSatisfaction } from "@/store/dashboardStore";
 import { Card, CardContent, Typography, Box } from "@mui/material";
 import {
   AreaChart,
@@ -14,14 +15,17 @@ export default function CustomerSatisfaction() {
   const { customerSatisfaction } = useDashboardStore();
   if (!customerSatisfaction) return null;
 
-  const data = customerSatisfaction.labels.map((day: string, i: number) => ({
+  // Type assertion for safety
+  const cs = customerSatisfaction as CustomerSatisfaction;
+
+  const data = cs.labels.map((day, i) => ({
     name: day,
-    lastMonth: customerSatisfaction.LastMonth[i],
-    thisMonth: customerSatisfaction.ThisMonth[i],
+    lastMonth: cs.LastMonth[i],
+    thisMonth: cs.ThisMonth[i],
   }));
 
-  const totalLastMonth = customerSatisfaction.LastMonth.reduce((a, b) => a + b, 0);
-  const totalThisMonth = customerSatisfaction.ThisMonth.reduce((a, b) => a + b, 0);
+  const totalLastMonth = cs.LastMonth.reduce((a, b) => a + b, 0);
+  const totalThisMonth = cs.ThisMonth.reduce((a, b) => a + b, 0);
 
   return (
     <Card sx={{

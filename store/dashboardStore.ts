@@ -1,15 +1,40 @@
 import { create } from 'zustand';
 
+export interface CustomerSatisfaction {
+    labels: string[];
+    LastMonth: number[];
+    ThisMonth: number[];
+}
+
+export interface TopProduct {
+    id: number;
+    name: string;
+    popularity: number;
+    sales: number;
+}
+
+export interface SalesByCountry {
+    country: string;
+    sales: number;
+}
+
+export interface Metrics {
+  totalSales: string;
+  totalOrders: string;
+  productsSold: string;
+  newCustomers: string;
+}
+
 interface DashboardState {
-    metrics: Record<string, unknown> | null;
-    revenue: Record<string, unknown> | null;
-    visitorInsights: Record<string, unknown> | null;
-    customerSatisfaction: Record<string, unknown> | null;
-    targetVsReality: Record<string, unknown> | null;
-    topProducts: Record<string, unknown>[] | null;
-    salesByCountry: Record<string, unknown>[] | null;
-    volumeVsService: Record<string, unknown>[] | null;
-    fetchData: () => Promise<void>;
+    metrics: Metrics | null;
+                revenue: Record<string, unknown> | null;
+                visitorInsights: Record<string, unknown> | null;
+                customerSatisfaction: CustomerSatisfaction | null;
+                targetVsReality: Record<string, unknown> | null;
+                topProducts: TopProduct[] | null;
+                salesByCountry: SalesByCountry[] | null;
+                volumeVsService: Record<string, unknown>[] | null;
+                fetchData: () => Promise<void>;
 }
 
 const metricsData = {

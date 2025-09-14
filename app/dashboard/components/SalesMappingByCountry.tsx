@@ -1,5 +1,6 @@
 "use client";
 import { useDashboardStore } from "@/store/dashboardStore";
+import type { SalesByCountry } from "@/store/dashboardStore";
 import { Card, CardContent, Typography } from "@mui/material";
 import { ComposableMap, Geographies, Geography } from "react-simple-maps";
 import { scaleQuantile } from "d3-scale";
@@ -12,7 +13,7 @@ export default function SalesMappingByCountry() {
   if (!salesByCountry) return null;
 
   const colorScale = scaleQuantile()
-    .domain(salesByCountry.map((d: any) => d.sales))
+    .domain(salesByCountry.map((d: SalesByCountry) => d.sales))
     .range([
       "#ffedea",
       "#ffcec5",
@@ -36,7 +37,7 @@ export default function SalesMappingByCountry() {
           <Geographies geography={geoUrl}>
             {({ geographies }) =>
               geographies.map((geo) => {
-                const d = salesByCountry.find((s: any) => s.country === geo.properties.name);
+                const d = salesByCountry.find((s: SalesByCountry) => s.country === geo.properties.name);
                 return (
                   <Geography
                     key={geo.rsmKey}

@@ -1,6 +1,7 @@
 
 "use client";
 import { useDashboardStore } from "@/store/dashboardStore";
+// import type { Metrics } from "@/store/dashboardStore";
 import { Card, CardContent, Typography, Grid } from "@mui/material";
 import Image from 'next/image';
 import TotalSales from "@/public/images/TotalSales.svg";
