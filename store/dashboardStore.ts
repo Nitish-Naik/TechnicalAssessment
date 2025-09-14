@@ -25,15 +25,40 @@ export interface Metrics {
   newCustomers: string;
 }
 
+export interface Revenue {
+    labels: string[];
+    onlineSales: number[];
+    offlineSales: number[];
+}
+
+export interface TargetVsReality {
+    labels: string[];
+    reality: number[];
+    target: number[];
+}
+
+export interface VisitorInsights {
+    labels: string[];
+    loyalCustomers: number[];
+    newCustomers: number[];
+    uniqueCustomers: number[];
+}
+
+export interface VolumeServiceItem {
+    name: string;
+    Volume: number;
+    Services: number;
+}
+
 interface DashboardState {
     metrics: Metrics | null;
-                revenue: Record<string, unknown> | null;
-                visitorInsights: Record<string, unknown> | null;
+                revenue: Revenue | null;
+                visitorInsights: VisitorInsights | null;
                 customerSatisfaction: CustomerSatisfaction | null;
-                targetVsReality: Record<string, unknown> | null;
+                targetVsReality: TargetVsReality | null;
                 topProducts: TopProduct[] | null;
                 salesByCountry: SalesByCountry[] | null;
-                volumeVsService: Record<string, unknown>[] | null;
+                volumeVsService: VolumeServiceItem[] | null;
                 fetchData: () => Promise<void>;
 }
 

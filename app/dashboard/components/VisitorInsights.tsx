@@ -1,5 +1,6 @@
 "use client";
 import { useDashboardStore } from "@/store/dashboardStore";
+import type { VisitorInsights } from "@/store/dashboardStore";
 import { Card, CardContent, Typography } from "@mui/material";
 import { LineChart, Line, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer } from "recharts";
 
@@ -7,11 +8,12 @@ export default function VisitorInsights() {
   const { visitorInsights } = useDashboardStore();
   if (!visitorInsights) return null;
 
-  const data = visitorInsights.labels.map((day: string, i: number) => ({
+  const vi = visitorInsights as VisitorInsights;
+  const data = vi.labels.map((day, i) => ({
     name: day,
-    "Loyal Customers": visitorInsights.loyalCustomers[i],
-    "New Customers": visitorInsights.newCustomers[i],
-    "Unique Customers": visitorInsights.uniqueCustomers[i],
+    "Loyal Customers": vi.loyalCustomers[i],
+    "New Customers": vi.newCustomers[i],
+    "Unique Customers": vi.uniqueCustomers[i],
   }));
 
   return (

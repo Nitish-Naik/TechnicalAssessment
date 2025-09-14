@@ -1,5 +1,6 @@
 "use client";
 import { useDashboardStore } from "@/store/dashboardStore";
+import type { Revenue } from "@/store/dashboardStore";
 import { Card, CardContent, Typography } from "@mui/material";
 import {
   BarChart,
@@ -15,10 +16,11 @@ export default function RevenueChart() {
   const { revenue } = useDashboardStore();
   if (!revenue) return null;
 
-  const data = revenue.labels.map((day: string, i: number) => ({
+  const r = revenue as Revenue;
+  const data = r.labels.map((day, i) => ({
     name: day.slice(0, 3),
-    Online: revenue.onlineSales[i],
-    Offline: revenue.offlineSales[i],
+    Online: r.onlineSales[i],
+    Offline: r.offlineSales[i],
   }));
 
   return (

@@ -1,5 +1,6 @@
 "use client";
 import { useDashboardStore } from "@/store/dashboardStore";
+import type { VolumeServiceItem } from "@/store/dashboardStore";
 import { Card, CardContent, Typography, Box } from "@mui/material";
 import {
   BarChart,
@@ -14,15 +15,16 @@ export default function VolumeVsServiceLevel() {
   const { volumeVsService } = useDashboardStore(); // adjust your store key
   if (!volumeVsService) return null;
 
-  const data = volumeVsService.map((item) => ({
+  const vvs = volumeVsService as VolumeServiceItem[];
+  const data = vvs.map((item) => ({
     name: item.name,
     Volume: item.Volume,
     Services: item.Services,
   }));
 
   // Totals
-  const totalVolume = volumeVsService.reduce((a, b) => a + b.Volume, 0);
-  const totalServices = volumeVsService.reduce((a, b) => a + b.Services, 0);
+  const totalVolume = vvs.reduce((a, b) => a + b.Volume, 0);
+  const totalServices = vvs.reduce((a, b) => a + b.Services, 0);
 
   return (
     <Card sx={{

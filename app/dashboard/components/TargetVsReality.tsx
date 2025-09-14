@@ -1,5 +1,6 @@
 "use client";
 import { useDashboardStore } from "@/store/dashboardStore";
+import type { TargetVsReality } from "@/store/dashboardStore";
 import { Card, CardContent, Typography, Box, Avatar } from "@mui/material";
 import { BarChart, Bar, XAxis, Tooltip, ResponsiveContainer } from "recharts";
 import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
@@ -10,10 +11,11 @@ export default function TargetVsReality() {
   const { targetVsReality } = useDashboardStore();
   if (!targetVsReality) return null;
 
-  const data = targetVsReality.labels.map((month: string, i: number) => ({
+  const tvr = targetVsReality as TargetVsReality;
+  const data = tvr.labels.map((month, i) => ({
     name: month,
-    "Reality Sales": targetVsReality.reality[i],
-    "Target Sales": targetVsReality.target[i],
+    "Reality Sales": tvr.reality[i],
+    "Target Sales": tvr.target[i],
   }));
 
   return (
@@ -78,7 +80,7 @@ export default function TargetVsReality() {
               </Typography>
             </Box>
             <Typography sx={{ fontWeight: 600, color: "#10b981", ml: 2 }}>
-              {targetVsReality.reality.reduce((a: number, b: number) => a + b, 0).toFixed(3)}
+              {tvr.reality.reduce((a: number, b: number) => a + b, 0).toFixed(3)}
             </Typography>
           </Box>
 
@@ -97,7 +99,7 @@ export default function TargetVsReality() {
               </Typography>
             </Box>
             <Typography sx={{ fontWeight: 600, color: "#f59e0b", ml: 2 }}>
-              {targetVsReality.target.reduce((a: number, b: number) => a + b, 0).toFixed(3)}
+              {tvr.target.reduce((a: number, b: number) => a + b, 0).toFixed(3)}
             </Typography>
           </Box>
         </Box>
